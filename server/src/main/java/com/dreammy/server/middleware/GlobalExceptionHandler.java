@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleUnexpectedException(Exception ex) {
         Map<String, String> response = new HashMap<>();
         response.put("message", "An unexpected error occurred!" + ex.getMessage());
