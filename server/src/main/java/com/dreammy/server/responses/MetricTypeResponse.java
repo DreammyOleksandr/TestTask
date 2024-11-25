@@ -5,21 +5,25 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class MetricTypeResponse {
+
     @Id
     private Long id;
 
     @NotBlank(message = "Name cannot be blank.")
     private String name;
 
+    private String normalizedName;
+
+    private LocalDateTime creationDate;
+
     public Long getId() {
         return id;
     }
-
-    private String normalizedName;
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -27,6 +31,7 @@ public class MetricTypeResponse {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -37,5 +42,13 @@ public class MetricTypeResponse {
 
     public void setNormalizedName(String normalizedName) {
         this.normalizedName = normalizedName;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }
