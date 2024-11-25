@@ -1,5 +1,7 @@
 package com.dreammy.server.contollers;
 
+import com.dreammy.server.DTOs.MetricTypeDto;
+import com.dreammy.server.mappers.MetricTypeMapper;
 import com.dreammy.server.models.MetricType;
 import com.dreammy.server.service.MetricTypeService;
 import org.springframework.http.HttpStatus;
@@ -13,9 +15,11 @@ import java.util.List;
 public class MetricTypeController {
 
     private final MetricTypeService metricTypeService;
+    private final MetricTypeMapper metricTypeMapper;
 
-    public MetricTypeController(MetricTypeService metricTypeService) {
+    public MetricTypeController(MetricTypeService metricTypeService, MetricTypeMapper metricTypeMapper) {
         this.metricTypeService = metricTypeService;
+        this.metricTypeMapper = metricTypeMapper;
     }
 
     @GetMapping()
