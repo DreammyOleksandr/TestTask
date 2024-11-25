@@ -1,7 +1,7 @@
 package com.dreammy.server.services;
 
-import com.dreammy.server.exceptions.MetricTypeNotFoundException;
-import com.dreammy.server.exceptions.SeedingDefaultMetricTypesException;
+import com.dreammy.server.exceptions.metricType.MetricTypeNotFoundException;
+import com.dreammy.server.exceptions.metricType.SeedingDefaultMetricTypesException;
 import com.dreammy.server.models.MetricType;
 import com.dreammy.server.repositories.MetricTypeRepository;
 import com.dreammy.server.services.interfaces.IMetricTypeService;

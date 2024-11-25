@@ -1,4 +1,4 @@
-package com.dreammy.server.exceptions;
+package com.dreammy.server.exceptions.metricType;
 
 public class MetricTypeNotFoundException extends RuntimeException {
     public MetricTypeNotFoundException(String message) {

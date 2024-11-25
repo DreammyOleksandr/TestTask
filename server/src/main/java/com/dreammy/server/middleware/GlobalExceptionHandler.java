@@ -1,7 +1,7 @@
 package com.dreammy.server.middleware;
 
-import com.dreammy.server.exceptions.MetricTypeNotFoundException;
-import com.dreammy.server.exceptions.SeedingDefaultMetricTypesException;
+import com.dreammy.server.exceptions.metricType.MetricTypeNotFoundException;
+import com.dreammy.server.exceptions.metricType.SeedingDefaultMetricTypesException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
