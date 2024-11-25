@@ -1,4 +1,4 @@
-package com.dreammy.server.service.interfaces;
+package com.dreammy.server.services.interfaces;
 
 import com.dreammy.server.models.MetricType;
 
