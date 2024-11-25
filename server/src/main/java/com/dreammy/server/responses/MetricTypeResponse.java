@@ -1,4 +1,4 @@
-package com.dreammy.server.DTOs;
+package com.dreammy.server.responses;
 
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
@@ -7,29 +7,28 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MetricTypeDto {
-    public MetricTypeDto(String name, String normalizedName) {
-        this.name = name;
-        this.normalizedName = normalizedName;
-    }
-
+public class MetricTypeResponse {
     @Id
     private Long id;
 
     @NotBlank(message = "Name cannot be blank.")
     private String name;
 
-
-    @NotBlank(message = "Normalized name cannot be blank.")
-    private String normalizedName;
-
-
     public Long getId() {
         return id;
     }
 
+    private String normalizedName;
+
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getNormalizedName() {
@@ -38,12 +37,5 @@ public class MetricTypeDto {
 
     public void setNormalizedName(String normalizedName) {
         this.normalizedName = normalizedName;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
     }
 }

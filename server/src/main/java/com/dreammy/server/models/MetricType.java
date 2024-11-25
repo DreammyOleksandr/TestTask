@@ -12,8 +12,8 @@ public class MetricType {
 
     public MetricType(String name) {
         this.name = name;
-        this.normalizedName = name.toUpperCase();
         this.creationDate = LocalDateTime.now();
+        this.normalizedName = name.toUpperCase();
     }
 
     @Id

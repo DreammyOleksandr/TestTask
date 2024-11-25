@@ -1,6 +1,7 @@
 package com.dreammy.server.mappers;
 
-import com.dreammy.server.DTOs.MetricTypeDto;
+import com.dreammy.server.requests.metricType.MetricTypeUpdateRequest;
+import com.dreammy.server.responses.MetricTypeResponse;
 import com.dreammy.server.models.MetricType;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -11,8 +12,8 @@ import java.util.List;
 public interface MetricTypeMapper {
     MetricTypeMapper INSTANCE = Mappers.getMapper(MetricTypeMapper.class);
 
-    MetricType toModel(MetricTypeDto metricTypeDto);
-    MetricTypeDto toDto(MetricType metricType);
+    MetricType toModel(MetricTypeUpdateRequest metricTypeUpdateRequest);
+    MetricTypeResponse toResponse(MetricType metricType);
 
-    List<MetricTypeDto> toDtoList(List<MetricType> metricTypes);
+    List<MetricTypeResponse> toResposeList(List<MetricType> metricTypes);
 }
