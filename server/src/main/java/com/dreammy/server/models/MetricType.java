@@ -30,8 +30,7 @@ public class MetricType {
     @JsonIgnore
     private List<MetricValue> metricValues;
 
-    public MetricType() {
-    }
+    public MetricType() {}
 
     public MetricType(String name, String type) {
         this.name = name;
