@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.HashMap;
 import java.util.Map;
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(1)
 @RestControllerAdvice
 public class MetricTypeExceptionHandler {
 

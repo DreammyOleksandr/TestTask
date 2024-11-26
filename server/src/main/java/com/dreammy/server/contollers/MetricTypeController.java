@@ -24,9 +24,11 @@ public class MetricTypeController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<MetricTypeResponse>> getTypes() {
+    public ResponseEntity<List<MetricTypeResponse>> getAll() {
         List<MetricType> metricTypes = metricTypeService.getAll();
-        return ResponseEntity.ok(metricTypeMapper.toResposeList(metricTypes));
+        return metricTypes.isEmpty() || metricTypes == null
+                ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+                : ResponseEntity.ok(metricTypeMapper.toResposeList(metricTypes));
     }
 
     @GetMapping("/{id}")

@@ -21,9 +21,6 @@ public class MetricTypeService implements IMetricTypeService {
 
     public List<MetricType> getAll() {
         List<MetricType> metricTypes = metricTypeRepository.findAll();
-        if (metricTypes.isEmpty()) {
-            throw new MetricTypeNotFoundException("Metric types not found");
-        }
         return metricTypes;
     }
 
@@ -38,7 +35,6 @@ public class MetricTypeService implements IMetricTypeService {
         return createAndSaveDefaultMetricTypes();
     }
 
-
     public MetricType update(Long id, MetricType updatedMetricType) {
         MetricType existingMetric = getById(id);
         existingMetric.setName(updatedMetricType.getName());
@@ -46,15 +42,13 @@ public class MetricTypeService implements IMetricTypeService {
     }
 
     public void deleteAll() {
-        if (metricTypeRepository.count() == 0) {
-            throw new MetricTypeNotFoundException("Metric types not found");
-        }
         metricTypeRepository.deleteAll();
     }
 
     private void ensureMetricTypesAreEmpty() {
         if (!metricTypeRepository.findAll().isEmpty()) {
-            throw new SeedingDefaultMetricTypesException("To seed default metric types the list of metric types must be empty");
+            String errorMessage = "To seed default metric types the list of metric types must be empty";
+            throw new SeedingDefaultMetricTypesException(errorMessage);
         }
     }
 
