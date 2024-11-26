@@ -1,7 +1,5 @@
 package com.dreammy.server.responses;
 
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,10 +9,8 @@ import java.time.LocalDateTime;
 @Setter
 public class MetricTypeResponse {
 
-    @Id
     private Long id;
 
-    @NotBlank(message = "Name cannot be blank.")
     private String name;
 
     private String normalizedName;

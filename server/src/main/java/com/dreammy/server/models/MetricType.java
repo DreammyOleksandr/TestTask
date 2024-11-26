@@ -29,7 +29,6 @@ public class MetricType {
     @Column(nullable = false, updatable = false)
     private LocalDateTime creationDate = LocalDateTime.now();
 
-
     public Long getId() {
         return id;
     }
