@@ -4,10 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-public class MetricValueUpsertRequest {
-
-    @NotNull
-    private Long metricTypeId;
+public class MetricValueUpdateRequest {
 
     @NotNull(message = "Value cannot be null.")
     private String value;
@@ -18,10 +15,6 @@ public class MetricValueUpsertRequest {
         return value;
     }
 
-    public Long getMetricTypeId() {
-        return metricTypeId;
-    }
-
     public List<Long> getRelationIds() {
         return relationIds;
     }
@@ -29,5 +22,4 @@ public class MetricValueUpsertRequest {
     public void setRelationIds(List<Long> relationIds) {
         this.relationIds = relationIds;
     }
-
 }
