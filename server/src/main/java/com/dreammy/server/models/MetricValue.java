@@ -23,8 +23,8 @@ public class MetricValue {
     @JsonBackReference
     private MetricType metricType;
 
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime recordedDate = LocalDateTime.now();
+    @Column(nullable = false)
+    private LocalDateTime recordedDate;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JsonManagedReference
@@ -58,6 +58,9 @@ public class MetricValue {
         return recordedDate;
     }
 
+    public void setRecordedDate(LocalDateTime recordedDate) {
+        this.recordedDate = recordedDate;
+    }
 
     public List<MetricValueRelation> getRelations() {
         return relations;
