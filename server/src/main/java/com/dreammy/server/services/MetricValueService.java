@@ -12,6 +12,7 @@ import com.dreammy.server.repositories.MetricValueRepository;
 import com.dreammy.server.requests.metricValue.MetricValueCreateRequest;
 import com.dreammy.server.requests.metricValue.MetricValueUpdateRequest;
 import com.dreammy.server.responses.MetricValueResponse;
+import com.dreammy.server.services.interfaces.IMetricValueService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 
 @Service
-public class MetricValueService {
+public class MetricValueService implements IMetricValueService {
 
     private final MetricValueRepository metricValueRepository;
     private final MetricTypeRepository metricTypeRepository;
