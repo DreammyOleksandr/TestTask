@@ -5,8 +5,8 @@ import com.dreammy.server.models.MetricType;
 import java.util.List;
 
 public interface IMetricTypeService {
-    MetricType getMetricTypeById(Long id);
-    List<MetricType> getAllMetricTypes();
-    List<MetricType> createDefaultMetricTypes();
-    MetricType updateMetricType(Long id, MetricType updatedMetricType);
+    MetricType getById(Long id);
+    List<MetricType> getAll();
+    List<MetricType> createDefault();
+    MetricType update(Long id, MetricType updatedMetricType);
 }
