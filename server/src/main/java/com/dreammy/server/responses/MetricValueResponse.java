@@ -1,25 +1,22 @@
 package com.dreammy.server.responses;
 
 import com.dreammy.server.models.MetricType;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
+import com.dreammy.server.models.MetricValue;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MetricValueResponse {
 
-    @Id
     private Long id;
 
-    @NotNull(message = "Value cannot be null.")
-    private Double value;
+    private String value;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="metric_type_id", nullable = false)
     private MetricType metricType;
 
-    @Column(nullable = false, updatable = false)
     private LocalDateTime recordedDate = LocalDateTime.now();
+
+    List<MetricValue> relatedMetricValues;
 
     public Long getId() {
         return id;
@@ -29,11 +26,11 @@ public class MetricValueResponse {
         this.id = id;
     }
 
-    public Double getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Double value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -47,5 +44,13 @@ public class MetricValueResponse {
 
     public LocalDateTime getRecordedDate() {
         return recordedDate;
+    }
+
+    public List<MetricValue> getRelatedMetricValues() {
+        return relatedMetricValues;
+    }
+
+    public void setRelatedMetricValues(List<MetricValue> relatedMetricValues) {
+        this.relatedMetricValues = relatedMetricValues;
     }
 }
