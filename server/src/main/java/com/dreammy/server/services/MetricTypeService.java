@@ -8,20 +8,18 @@ import com.dreammy.server.services.interfaces.IMetricTypeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MetricTypeService implements IMetricTypeService {
+
+    private final MetricTypeRepository metricTypeRepository;
 
     public MetricTypeService(MetricTypeRepository metricTypeRepository) {
         this.metricTypeRepository = metricTypeRepository;
     }
 
-    private final MetricTypeRepository metricTypeRepository;
-
-    public List<MetricType> getAllMetricTypes() {
+    public List<MetricType> getAll() {
         List<MetricType> metricTypes = metricTypeRepository.findAll();
         if (metricTypes.isEmpty()) {
             throw new MetricTypeNotFoundException("Metric types not found");
@@ -29,42 +27,43 @@ public class MetricTypeService implements IMetricTypeService {
         return metricTypes;
     }
 
-    public MetricType getMetricTypeById(Long id) {
+    public MetricType getById(Long id) {
         return metricTypeRepository.findById(id)
                 .orElseThrow(() -> new MetricTypeNotFoundException("Metric type not found with id: " + id));
     }
 
     @Transactional
-    public List<MetricType> createDefaultMetricTypes() {
-        List<MetricType> defaultMetricTypes = metricTypeRepository.findAll();
-        if (!defaultMetricTypes.isEmpty()) {
+    public List<MetricType> createDefault() {
+        ensureMetricTypesAreEmpty();
+        return createAndSaveDefaultMetricTypes();
+    }
+
+
+    public MetricType update(Long id, MetricType updatedMetricType) {
+        MetricType existingMetric = getById(id);
+        existingMetric.setName(updatedMetricType.getName());
+        return metricTypeRepository.save(existingMetric);
+    }
+
+    public void deleteAll() {
+        if (metricTypeRepository.count() == 0) {
+            throw new MetricTypeNotFoundException("Metric types not found");
+        }
+        metricTypeRepository.deleteAll();
+    }
+
+    private void ensureMetricTypesAreEmpty() {
+        if (!metricTypeRepository.findAll().isEmpty()) {
             throw new SeedingDefaultMetricTypesException("To seed default metric types the list of metric types must be empty");
         }
+    }
 
-        defaultMetricTypes = Arrays.asList(
+    private List<MetricType> createAndSaveDefaultMetricTypes() {
+        List<MetricType> defaultMetricTypes = List.of(
                 new MetricType("Temperature"),
                 new MetricType("SubstanceMass"),
                 new MetricType("UserSatisfaction")
         );
         return metricTypeRepository.saveAll(defaultMetricTypes);
-    }
-
-    public MetricType updateMetricType(Long id, MetricType updatedMetricType) {
-        Optional<MetricType> existingMetricOpt = metricTypeRepository.findById(id);
-
-        if (existingMetricOpt.isEmpty()) {
-            throw new MetricTypeNotFoundException("Metric not found with id: " + id);
-        }
-
-        MetricType existingMetricType = existingMetricOpt.get();
-        existingMetricType.setName(updatedMetricType.getName());
-        return metricTypeRepository.save(existingMetricType);
-    }
-
-    public void deleteAllMetricTypes() {
-        if (metricTypeRepository.findAll().isEmpty()) {
-            throw new MetricTypeNotFoundException("Metric types not found");
-        }
-        metricTypeRepository.deleteAll();
     }
 }

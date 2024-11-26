@@ -24,32 +24,32 @@ public class MetricTypeController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<MetricTypeResponse>> getAllMetricTypes() {
-        List<MetricType> metricTypes = metricTypeService.getAllMetricTypes();
+    public ResponseEntity<List<MetricTypeResponse>> getTypes() {
+        List<MetricType> metricTypes = metricTypeService.getAll();
         return ResponseEntity.ok(metricTypeMapper.toResposeList(metricTypes));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<MetricTypeResponse> getMetricTypeById(@PathVariable Long id) {
-        MetricType metricType = metricTypeService.getMetricTypeById(id);
+    public ResponseEntity<MetricTypeResponse> getById(@PathVariable Long id) {
+        MetricType metricType = metricTypeService.getById(id);
         return ResponseEntity.ok(metricTypeMapper.toResponse(metricType));
     }
 
     @PostMapping("/default")
-    public ResponseEntity<List<MetricTypeResponse>> createDefaultMetricTypes() {
-        List<MetricType> metricTypes = metricTypeService.createDefaultMetricTypes();
+    public ResponseEntity<List<MetricTypeResponse>> createDefault() {
+        List<MetricType> metricTypes = metricTypeService.createDefault();
         return new ResponseEntity<>(metricTypeMapper.toResposeList(metricTypes), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MetricTypeResponse> updateMetricType(@PathVariable Long id, @RequestBody MetricTypeUpdateRequest request) {
-        MetricType updatedResult = metricTypeService.updateMetricType(id, metricTypeMapper.toModel(request));
+    public ResponseEntity<MetricTypeResponse> update(@PathVariable Long id, @RequestBody MetricTypeUpdateRequest request) {
+        MetricType updatedResult = metricTypeService.update(id, metricTypeMapper.toModel(request));
         return ResponseEntity.ok(metricTypeMapper.toResponse(updatedResult));
     }
 
     @DeleteMapping
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteAllMetricTypes() {
-        metricTypeService.deleteAllMetricTypes();
+    public void deleteAll() {
+        metricTypeService.deleteAll();
     }
 }
