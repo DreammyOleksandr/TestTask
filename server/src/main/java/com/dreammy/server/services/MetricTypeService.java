@@ -60,9 +60,9 @@ public class MetricTypeService implements IMetricTypeService {
 
     private List<MetricType> createAndSaveDefaultMetricTypes() {
         List<MetricType> defaultMetricTypes = List.of(
-                new MetricType("Temperature"),
-                new MetricType("SubstanceMass"),
-                new MetricType("UserSatisfaction")
+                new MetricType("Temperature", "FLOAT"),
+                new MetricType("SubstanceMass", "INT"),
+                new MetricType("UserSatisfaction", "BOOLEAN")
         );
         return metricTypeRepository.saveAll(defaultMetricTypes);
     }
