@@ -104,10 +104,9 @@ public class MetricValueService implements IMetricValueService {
     }
 
     private MetricValue findMetricValueById(Long id) {
-        MetricValue metricValue = metricValueRepository
+        return metricValueRepository
                 .findById(id)
                 .orElseThrow(() -> new MetricValueNotFoundException("Metric Value not found with id: " + id));
-        return metricValue;
     }
 
     private MetricValue buildMetricValue(MetricValueCreateRequest request, MetricType metricType) {
