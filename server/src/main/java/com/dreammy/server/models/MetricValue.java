@@ -20,7 +20,6 @@ public class MetricValue {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "metric_type_id", nullable = false)
-    @JsonBackReference
     private MetricType metricType;
 
     @Column(nullable = false)
