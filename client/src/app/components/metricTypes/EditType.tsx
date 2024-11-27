@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 
-export default function UpdateType() {
+export default function EditType() {
   const [name, setName] = useState<string>('')
   const router = useRouter()
   const { id } = useParams()
