@@ -1,95 +1,98 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+
+import { useState, useEffect } from 'react'
+import { Dropdown } from './components/metricTypes/Dropdown'
+import { Table } from './components/metricValues/Table'
+import Link from 'next/link'
+import {
+  fetchMetricTypes,
+  fetchMetricValues,
+  createDefaultMetricTypes,
+  deleteMetricTypes,
+} from './utils/api'
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [metricValues, setMetricValues] = useState([])
+  const [metricTypes, setMetricTypes] = useState([])
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+  const fetchData = async () => {
+    try {
+      const [types, values] = await Promise.all([fetchMetricTypes(), fetchMetricValues()])
+      setMetricTypes(types)
+      setMetricValues(values)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
+  const handleCreateDefaultTypes = async () => {
+    try {
+      await createDefaultMetricTypes()
+      console.log('Default types created')
+      fetchData()
+    } catch (error) {
+      console.error('Error creating default types:', error)
+    }
+  }
+
+  const handleDeleteTypes = async () => {
+    try {
+      await deleteMetricTypes()
+      console.log('Types deleted')
+      fetchData()
+    } catch (error) {
+      console.error('Error deleting types:', error)
+    }
+  }
+
+  const handleDeleteValue = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8080/metricvalues/${id}`, {
+        method: 'DELETE',
+      })
+      if (!response.ok) throw new Error('Failed to delete value')
+      console.log(`Metric value ${id} deleted`)
+      fetchData()
+    } catch (error) {
+      console.error(`Error deleting metric value ${id}:`, error)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  return (
+    <div className='container mt-5'>
+      <div className='row mb-5'>
+        <div className='row'>
+          <div className='col-md-4'>
+            <button onClick={handleCreateDefaultTypes} className='btn btn-success w-100 mb-2'>
+              Create Default Types
+            </button>
+          </div>
+          <div className='col-md-4'>
+            <button onClick={handleDeleteTypes} className='btn btn-danger w-100'>
+              Delete All Types
+            </button>
+          </div>
+          <div className='col-md-4'>
+            <Dropdown metricTypes={metricTypes} />
+          </div>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      <div className='row'>
+        <div>
+          <h1 className='mb-4'>Metric Values Dashboard</h1>
+        </div>
+        <div>
+          <Link href={`/values/create`} className='btn btn-success'>
+            Create
+          </Link>
+        </div>
+      </div>
+      <Table metricValues={metricValues} onDelete={handleDeleteValue} />
     </div>
-  );
+  )
 }
