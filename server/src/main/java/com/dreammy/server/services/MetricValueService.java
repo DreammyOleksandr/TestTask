@@ -16,6 +16,7 @@ import com.dreammy.server.services.interfaces.IMetricValueService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
@@ -103,16 +104,16 @@ public class MetricValueService implements IMetricValueService {
     }
 
     private MetricValue findMetricValueById(Long id) {
-        MetricValue metricValue = metricValueRepository
+        return metricValueRepository
                 .findById(id)
                 .orElseThrow(() -> new MetricValueNotFoundException("Metric Value not found with id: " + id));
-        return metricValue;
     }
 
     private MetricValue buildMetricValue(MetricValueCreateRequest request, MetricType metricType) {
         MetricValue metricValue = new MetricValue();
         metricValue.setMetricType(metricType);
         metricValue.setValue(request.getValue());
+        metricValue.setRecordedDate(LocalDateTime.now());
         return metricValue;
     }
 

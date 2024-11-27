@@ -14,7 +14,7 @@ public class MetricValueResponse {
 
     private MetricType metricType;
 
-    private LocalDateTime recordedDate = LocalDateTime.now();
+    private LocalDateTime recordedDate;
 
     List<MetricValue> relatedMetricValues;
 
@@ -44,6 +44,10 @@ public class MetricValueResponse {
 
     public LocalDateTime getRecordedDate() {
         return recordedDate;
+    }
+
+    public void setRecordedDate(LocalDateTime recordedDate) {
+        this.recordedDate = recordedDate;
     }
 
     public List<MetricValue> getRelatedMetricValues() {

@@ -20,8 +20,7 @@ public class MetricTypeService implements IMetricTypeService {
     }
 
     public List<MetricType> getAll() {
-        List<MetricType> metricTypes = metricTypeRepository.findAll();
-        return metricTypes;
+        return metricTypeRepository.findAll();
     }
 
     public MetricType getById(Long id) {
